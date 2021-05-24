@@ -8,8 +8,8 @@
     "npm": "7.13.0"
   },
   "scripts": {
-    "build-babel": "babel -d ./build ./src",
-    "start": "npm run build-babel && node ./build/server.js",
+    "build": "babel -d ./build ./src",
+    "start": "node ./build/server.js",
     "dev": "nodemon --exec babel-node ./src/server.js"
   },
   "keywords": [],
