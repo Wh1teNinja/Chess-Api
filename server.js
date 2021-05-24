@@ -15,7 +15,7 @@ const sessionConfigs = session({
   saveUninitialized: true,
 });
 
-app.use(morgan("dev"));
+app.use(morgan(':id :method :url :response-time'));
 
 app.use(express.json());
 
