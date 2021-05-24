@@ -21,19 +21,18 @@ app.use(express.json());
 
 app.use(sessionConfigs);
 
+const corsConfigs = {
+  origin: process.env.CLIENT_URL || "http://localhost:3000",
+  credentials: true,
+};
+
 app.use(
-  cors({
-    origin: process.env.CLIENT_URL || "http://localhost:3000",
-    credentials: true,
-  })
+  cors(corsConfigs)
 );
 
 // socket.io configs
 const io = require("socket.io")(server, {
-  cors: {
-    origin: process.env.CLIENT_URL || "http://localhost:3000",
-    credentials: true,
-  },
+  cors: corsConfigs,
 });
 io.use(
   sharedSession(sessionConfigs, {
