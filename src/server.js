@@ -577,6 +577,11 @@ app.get("/", (req, res) => {
   res.json({ username: req.session.username, roomId: req.session.room.id });
 });
 
+// Route to get client url if needed
+app.get("/client-url", (req, res) => {
+  res.json({ clientUrl: process.env.CLIENT_URL });
+}) 
+
 // This route checks if submitted username is appropriate and sets it to the session
 app.post("/submit-username", (req, res) => {
   if (req.body.username === req.session.username)
