@@ -8,12 +8,18 @@
     "npm": "7.13.0"
   },
   "scripts": {
-    "start": "nodemon --exec babel-node server.js"
+    "build-babel": "babel -d ./build --ignore node_modules/**/*.js . -s",
+    "start": "npm run build-babel && node ./build/server.js",
+    "dev": "nodemon --exec babel-node server.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@babel/cli": "^7.13.16",
+    "@babel/core": "^7.13.16",
+    "@babel/node": "^7.13.13",
+    "@babel/preset-env": "^7.13.15",
     "cors": "^2.8.5",
     "express": "^4.17.1",
     "express-session": "^1.17.1",
@@ -22,10 +28,6 @@
     "socket.io": "^4.0.1"
   },
   "devDependencies": {
-    "@babel/cli": "^7.13.16",
-    "@babel/core": "^7.13.16",
-    "@babel/node": "^7.13.13",
-    "@babel/preset-env": "^7.13.15",
     "nodemon": "^2.0.7"
   }
 }
