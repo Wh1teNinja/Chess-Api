@@ -15,7 +15,7 @@ const sessionConfigs = session({
   saveUninitialized: true,
 });
 
-app.use(morgan(':id :method :url :response-time'));
+app.use(morgan(':method :url :response-time'));
 
 app.use(express.json());
 
@@ -23,7 +23,7 @@ app.use(sessionConfigs);
 
 app.use(
   cors({
-    origin: "http://localhost:3000" || process.env.CLIENT_URL,
+    origin: process.env.CLIENT_URL || "http://localhost:3000",
     credentials: true,
   })
 );
@@ -31,7 +31,7 @@ app.use(
 // socket.io configs
 const io = require("socket.io")(server, {
   cors: {
-    origin: "http://localhost:3000" || process.env.CLIENT_URL,
+    origin: process.env.CLIENT_URL || "http://localhost:3000",
     credentials: true,
   },
 });
