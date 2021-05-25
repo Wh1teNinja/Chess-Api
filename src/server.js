@@ -5,18 +5,24 @@ const sharedSession = require("express-socket.io-session");
 const morgan = require("morgan");
 const cors = require("cors");
 const piecesMoves = require("./piecesMoves");
+import MongoStore from "connect-mongo";
+
+require("dotenv").config();
 
 const PORT = process.env.PORT || 80;
 const app = express();
 const server = http.createServer(app);
 const sessionConfigs = session({
-  secret: "H3FPBL%W*%9AlW78aSTxsdek",
+  secret: process.env.SESSION_SECRET,
   resave: true,
   saveUninitialized: true,
-  cookie: { secure: true },
+  store: MongoStore.create({
+    mongoUrl: `mongodb+srv://${process.env.DB_LOGIN}:${process.env.DB_PASS}@cluster0.grwjz.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`,
+  }),
+  cookie: { secure: process.env.NODE_ENV === 'production' },
 });
 
-app.use(morgan(':method :url :response-time'));
+app.use(morgan(":method :url :response-time"));
 
 app.use(express.json());
 
@@ -27,9 +33,7 @@ const corsConfigs = {
   credentials: true,
 };
 
-app.use(
-  cors(corsConfigs)
-);
+app.use(cors(corsConfigs));
 
 // socket.io configs
 const io = require("socket.io")(server, {
@@ -581,7 +585,7 @@ app.get("/", (req, res) => {
 // Route to get client url if needed
 app.get("/client-url", (req, res) => {
   res.json({ clientUrl: process.env.CLIENT_URL });
-}) 
+});
 
 // This route checks if submitted username is appropriate and sets it to the session
 app.post("/submit-username", (req, res) => {
