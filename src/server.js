@@ -13,7 +13,7 @@ const sessionConfigs = session({
   secret: "H3FPBL%W*%9AlW78aSTxsdek",
   resave: true,
   saveUninitialized: true,
-  secure: true,
+  cookie: { secure: true },
 });
 
 app.use(morgan(':method :url :response-time'));
