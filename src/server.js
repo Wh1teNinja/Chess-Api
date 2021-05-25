@@ -14,13 +14,16 @@ const app = express();
 const server = http.createServer(app);
 const sessionConfigs = session({
   secret: process.env.SESSION_SECRET,
-  proxy: process.env.NODE_ENV === 'production',
-  resave: true,
+  proxy: process.env.NODE_ENV === "production",
+  resave: false,
   saveUninitialized: true,
   store: MongoStore.create({
     mongoUrl: `mongodb+srv://${process.env.DB_LOGIN}:${process.env.DB_PASS}@cluster0.grwjz.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`,
   }),
-  cookie: { secure: process.env.NODE_ENV === 'production' },
+  cookie: {
+    secure: process.env.NODE_ENV === "production",
+  },
+  rolling: true,
 });
 
 app.use(morgan(":method :url :response-time"));
