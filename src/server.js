@@ -15,7 +15,7 @@ const server = http.createServer(app);
 const sessionConfigs = session({
   secret: process.env.SESSION_SECRET,
   proxy: process.env.NODE_ENV === 'production',
-  resave: false,
+  resave: true,
   saveUninitialized: true,
   store: MongoStore.create({
     mongoUrl: `mongodb+srv://${process.env.DB_LOGIN}:${process.env.DB_PASS}@cluster0.grwjz.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`,
