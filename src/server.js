@@ -30,6 +30,7 @@ app.use(morgan(":method :url :response-time"));
 
 app.use(express.json());
 
+app.set('trust proxy', 1)
 app.use(sessionConfigs);
 
 const corsConfigs = {
